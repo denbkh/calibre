@@ -283,27 +283,27 @@ class EbookViewer(MainWindow):
         self.action_toggle_paged_mode.toggled[bool].connect(self.toggle_paged_mode)
         if (start_in_fullscreen or self.view.document.start_in_fullscreen):
             self.action_full_screen.trigger()
-        self.hide_cursor_timer = t = QTimer(self)
-        t.setSingleShot(True), t.setInterval(3000)
-        t.timeout.connect(self.hide_cursor)
-        t.start()
+        # self.hide_cursor_timer = t = QTimer(self)
+        # t.setSingleShot(True), t.setInterval(3000)
+        # t.timeout.connect(self.hide_cursor)
+        # t.start()
 
     def process_file_events(self):
         if self.file_events:
             self.load_ebook(self.file_events[-1])
 
-    def eventFilter(self, obj, ev):
-        if ev.type() == ev.MouseMove:
-            if self.cursor_hidden:
-                self.cursor_hidden = False
-                QApplication.instance().restoreOverrideCursor()
-            self.hide_cursor_timer.start()
-        return False
-
-    def hide_cursor(self):
-        self.cursor_hidden = True
-        QApplication.instance().setOverrideCursor(Qt.BlankCursor)
-
+    # def eventFilter(self, obj, ev):
+    #     if ev.type() == ev.MouseMove:
+    #         if self.cursor_hidden:
+    #             self.cursor_hidden = False
+    #             QApplication.instance().restoreOverrideCursor()
+    #         self.hide_cursor_timer.start()
+    #     return False
+    # 
+    # def hide_cursor(self):
+    #     self.cursor_hidden = True
+    #     QApplication.instance().setOverrideCursor(Qt.BlankCursor)
+    
     def toggle_paged_mode(self, checked, at_start=False):
         in_paged_mode = not self.action_toggle_paged_mode.isChecked()
         self.view.document.in_paged_mode = in_paged_mode
