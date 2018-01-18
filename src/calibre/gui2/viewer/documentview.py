@@ -1270,7 +1270,7 @@ class DocumentView(QWebView):  # {{{
                 self.next_page()
                 event.accept()
                 return
-            if self.document.at_bottom:
+            if (self.document.at_bottom and not self.document.line_scrolling_stops_on_pagebreaks):
                 self.scroll_by(y=15)  # at_bottom can lie on windows
                 if self.manager is not None:
                     self.manager.next_document()
@@ -1282,7 +1282,7 @@ class DocumentView(QWebView):  # {{{
                 event.accept()
                 return
 
-            if self.document.at_top:
+            if (self.document.at_top and not self.document.line_scrolling_stops_on_pagebreaks):
                 if self.manager is not None:
                     self.manager.previous_document()
                     event.accept()
