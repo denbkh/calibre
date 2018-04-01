@@ -245,6 +245,12 @@ class Document(QWebPage):  # {{{
         for pl in self.all_viewer_plugins:
             pl.run_javascript(evaljs)
         self.first_load = False
+        if not self.in_paged_mode:
+            self.javascript('''
+                s = document.body.style;
+                s.maxWidth = %d + 'px';
+                s.marginLeft = 'auto';
+                s.marginRight = 'auto';''' % (self.max_fs_width)) 
 
     def colors(self):
         ans = json.loads(self.javascript('''
